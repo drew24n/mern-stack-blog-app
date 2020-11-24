@@ -17,6 +17,9 @@ export const notesApi = {
     getNote(id) {
         return instance.get(`/api/notes?id=${id}`).then(res => res.data)
     },
+    getLatestNote() {
+        return instance.get(`/api/notes?latest=true`).then(res => res.data)
+    },
     delete(id) {
         return instance.delete(`/api/notes?id=${id}`).then(res => res.data)
     }

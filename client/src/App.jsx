@@ -6,7 +6,6 @@ import {notificationError} from "./utils/notifications";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import NotFound from "./components/NotFound/NotFound";
-import AllPosts from "./components/AllPosts/AllPosts";
 import Post from "./components/Post/Post";
 import NewPost from "./components/NewPost/NewPost";
 
@@ -24,7 +23,6 @@ export default function App() {
             <NavBar history={history}/>
             <Switch>
                 <Route exact path={'/'} render={Home}/>
-                <Route path={'/all-posts'} render={AllPosts}/>
                 <Route path={'/post'} render={Post}/>
                 <Route path={'/new-post'} render={NewPost}/>
                 <Route render={() => <NotFound/>}/>

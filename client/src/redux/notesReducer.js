@@ -2,14 +2,12 @@ import {notesApi} from "../api/notes";
 import {notificationError, notificationSuccess} from "../utils/notifications";
 
 const SET_NOTES = "SET_NOTES"
-const SET_VIEW_NOTE = "SET_VIEW_NOTE"
 const SET_IS_FETCHING = "SET_IS_FETCHING"
 const ADD_NEW_NOTE = "ADD_NEW_NOTE"
 const DELETE_NOTE = "DELETE_NOTE"
 
 const initialState = {
     notes: [],
-    viewNote: null,
     isFetching: false
 }
 
@@ -18,10 +16,6 @@ export const notesReducer = (state = initialState, action) => {
         case SET_NOTES:
             return {
                 ...state, notes: [...action.notes]
-            }
-        case SET_VIEW_NOTE:
-            return {
-                ...state, viewNote: action.viewNote
             }
         case ADD_NEW_NOTE:
             return {
@@ -47,7 +41,6 @@ export const notesReducer = (state = initialState, action) => {
 }
 
 const setNotes = (notes) => ({type: SET_NOTES, notes})
-const setViewNote = (viewNote) => ({type: SET_VIEW_NOTE, viewNote})
 const addNewNote = (newNote) => ({type: ADD_NEW_NOTE, newNote})
 const deleteNoteAction = (id) => ({type: DELETE_NOTE, id})
 const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
@@ -75,7 +68,7 @@ export const getNote = (id) => async (dispatch) => {
         dispatch(setIsFetching(true))
         const {success, data} = await notesApi.getNote(id)
         if (success) {
-            dispatch(setViewNote(data))
+            dispatch(setNotes(data))
         }
     } catch (error) {
         if (error.response) {

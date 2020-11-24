@@ -43,6 +43,17 @@ const notesApi = {
                 } catch (error) {
                     res.status(400).json({success: false, error: error.message})
                 }
+            } else if (req.query.latest) {
+                try {
+                    const note = await Notes.find().sort({date: -1}).limit(1)
+                    if (note) {
+                        res.status(200).json({success: true, data: note})
+                    } else if (!note) {
+                        res.status(400).json({success: false, error: 'Note was not found'})
+                    }
+                } catch (error) {
+                    res.status(400).json({success: false, error: error.message})
+                }
             } else {
                 try {
                     const page = req.query.page ? parseInt(req.query.page) : 1
