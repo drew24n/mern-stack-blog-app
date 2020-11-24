@@ -1,1 +1,38 @@
-.container {}
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8080802D;
+  font-size: 20px;
+  padding: 20px;
+
+  .navRight {
+    width: fit-content;
+  }
+
+  .navLeft {
+    width: fit-content;
+
+    a {
+      &:first-child {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  a {
+    color: #000;
+
+    &:hover {
+      color: inherit;
+    }
+
+    &.active {
+      color: #6495ed;
+
+      &:hover {
+        color: #6495ed;
+      }
+    }
+  }
+}

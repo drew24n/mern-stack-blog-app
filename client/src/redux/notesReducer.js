@@ -5,9 +5,13 @@ const SET_NOTES = "SET_NOTES"
 const SET_IS_FETCHING = "SET_IS_FETCHING"
 const ADD_NEW_NOTE = "ADD_NEW_NOTE"
 const DELETE_NOTE = "DELETE_NOTE"
+const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
+const SET_PAGE_NUMBER = "SET_PAGE_NUMBER"
 
 const initialState = {
     notes: [],
+    pageNumber: 1,
+    totalCount: 0,
     isFetching: false
 }
 
@@ -16,6 +20,14 @@ export const notesReducer = (state = initialState, action) => {
         case SET_NOTES:
             return {
                 ...state, notes: [...action.notes]
+            }
+        case SET_TOTAL_COUNT:
+            return {
+                ...state, totalCount: action.totalCount
+            }
+        case SET_PAGE_NUMBER:
+            return {
+                ...state, pageNumber: action.pageNumber
             }
         case ADD_NEW_NOTE:
             return {
@@ -44,13 +56,16 @@ const setNotes = (notes) => ({type: SET_NOTES, notes})
 const addNewNote = (newNote) => ({type: ADD_NEW_NOTE, newNote})
 const deleteNoteAction = (id) => ({type: DELETE_NOTE, id})
 const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
+const setTotalCount = (totalCount) => ({type: SET_TOTAL_COUNT, totalCount})
+export const setPageNumber = (pageNumber) => ({type: SET_PAGE_NUMBER, pageNumber})
 
-export const getNotes = () => async (dispatch) => {
+export const getNotes = (pageNumber) => async (dispatch) => {
     try {
         dispatch(setIsFetching(true))
-        const {success, data} = await notesApi.getNotes()
+        const {success, data: {notes, totalCount}} = await notesApi.getNotes(pageNumber)
         if (success) {
-            dispatch(setNotes(data))
+            dispatch(setNotes(notes))
+            dispatch(setTotalCount(totalCount))
         }
     } catch (error) {
         if (error.response) {
@@ -67,6 +82,24 @@ export const getNote = (id) => async (dispatch) => {
     try {
         dispatch(setIsFetching(true))
         const {success, data} = await notesApi.getNote(id)
+        if (success) {
+            dispatch(setNotes(data))
+        }
+    } catch (error) {
+        if (error.response) {
+            notificationError(error.response.data.error)
+        } else {
+            notificationError(error)
+        }
+    } finally {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getLatestNote = () => async (dispatch) => {
+    try {
+        dispatch(setIsFetching(true))
+        const {success, data} = await notesApi.getLatestNote()
         if (success) {
             dispatch(setNotes(data))
         }

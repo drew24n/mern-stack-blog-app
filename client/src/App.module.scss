@@ -1,1 +1,6 @@
-.container {}
+.container {
+  display: grid;
+  grid-template-rows: 70px 1fr;
+  min-height: 100vh;
+  min-width: 360px;
+}

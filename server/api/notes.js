@@ -14,7 +14,6 @@ const notesApi = {
 
                 function addImage(note, imageEncoded) {
                     if (!imageEncoded) return
-                    // const image = await JSON.parse(imageEncoded)
                     if (imageEncoded && imageMimeTypes.includes(imageEncoded.type)) {
                         note.image = new Buffer.from(imageEncoded.data, 'base64')
                         note.imageType = imageEncoded.type
@@ -54,7 +53,7 @@ const notesApi = {
                 } catch (error) {
                     res.status(400).json({success: false, error: error.message})
                 }
-            } else {
+            } else if (req.query.page) {
                 try {
                     const page = req.query.page ? parseInt(req.query.page) : 1
                     const size = req.query.size ? parseInt(req.query.size) : 5

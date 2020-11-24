@@ -3,8 +3,8 @@ import styles from './NewPost.module.scss';
 
 export default function NewPost() {
     return (
-        <div className={styles.container}>
+        <main className={styles.container}>
 
-        </div>
+        </main>
     )
 }
