@@ -12,7 +12,9 @@ export default function PostItem({notes}) {
             {notes.map(n => {
                 return (
                     <section key={n._id} className={styles.container}>
-                        <img src={`data:${n.imageType};base64, ${bufferToBase64(n.image.data)}`} alt={'post text'}/>
+                        {n.imageType && n.image.data ?
+                            <img src={`data:${n.imageType};base64, ${bufferToBase64(n.image.data)}`} alt={'post text'}/>
+                            : null}
                         <div className={styles.content}>
                             <h2>{n.title} - {dateFormat(n.date)}</h2>
                             <p>{n.text}</p>

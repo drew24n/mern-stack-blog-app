@@ -121,15 +121,15 @@ export const getLatestNote = () => async (dispatch) => {
     }
 }
 
-export const newNote = ({title, text, photo}) => async (dispatch) => {
+export const newNote = ({title, text, image}) => async (dispatch) => {
     try {
         dispatch(setIsFetching(true))
-        const {success, data} = await notesApi.newNote({title, text, photo})
+        const {success, data} = await notesApi.newNote({title, text, image})
         if (success) {
             dispatch(addNewNote(data))
             notificationSuccess(`Note has been added!`)
         }
-        return {success}
+        return {success, data}
     } catch (error) {
         if (error.response) {
             notificationError(error.response.data.error)

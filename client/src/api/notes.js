@@ -8,8 +8,8 @@ const instance = axios.create({
 })
 
 export const notesApi = {
-    newNote({title, text, photo}) {
-        return instance.post('/api/notes', {title, text, photo}).then(res => res.data)
+    newNote({title, text, image}) {
+        return instance.post('/api/notes', {title, text, image}).then(res => res.data)
     },
     getNotes(pageNumber) {
         return instance.get(`/api/notes?page=${pageNumber}`).then(res => res.data)
