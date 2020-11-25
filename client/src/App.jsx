@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import styles from './App.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {Route, Switch, useHistory} from "react-router-dom";
+import ScrollToTop from "react-scroll-to-top";
+import {Spin} from "antd";
 import {notificationError} from "./utils/notifications";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
@@ -22,18 +24,21 @@ export default function App() {
     return (
         <div className={styles.container}>
             <NavBar history={history}/>
-            <Switch>
-                <Route exact path={'/'}
-                       render={() => <Home notes={state.notes} isFetching={state.isFetching} dispatch={dispatch}/>}/>
-                <Route exact path={'/posts'}
-                       render={() => <PostsPage notes={state.notes} isFetching={state.isFetching}
-                                                dispatch={dispatch} pageNumber={state.pageNumber}
-                                                totalCount={state.totalCount} history={history}/>}/>
-                <Route path={'/post'} render={() => <PostPage notes={state.notes} isFetching={state.isFetching}
-                                                              dispatch={dispatch}/>}/>
-                <Route path={'/new-post'} render={() => <NewPost history={history} dispatch={dispatch}/>}/>
-                <Route render={() => <NotFound/>}/>
-            </Switch>
+            <Spin size="large" spinning={state.isFetching}>
+                <Switch>
+                    <Route exact path={'/'} render={() => <Home notes={state.notes} dispatch={dispatch}/>}/>
+                    <Route exact path={'/posts'} render={() => <PostsPage notes={state.notes} dispatch={dispatch}
+                                                                          history={history}
+                                                                          pageNumber={state.pageNumber}
+                                                                          totalCount={state.totalCount}/>}/>
+                    <Route path={'/post'} render={() => <PostPage notes={state.notes} dispatch={dispatch}
+                                                                  history={history}
+                                                                  isModalVisible={state.isModalVisible}/>}/>
+                    <Route path={'/new-post'} render={() => <NewPost history={history} dispatch={dispatch}/>}/>
+                    <Route render={() => <NotFound/>}/>
+                </Switch>
+            </Spin>
+            <ScrollToTop top={150} smooth/>
         </div>
     )
 }

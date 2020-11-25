@@ -3,3 +3,17 @@
     justify-content: center;
     margin-bottom: 20px !important;
 }
+
+.ant-spin {
+    position: fixed !important;
+    height: 100vh;
+    max-height: 100vh !important;
+}
+
+* {
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

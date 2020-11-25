@@ -1,1 +1,22 @@
-.container {}
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 0 20px;
+
+  .delBtn {
+    margin: 20px auto;
+    display: block;
+  }
+
+  section {
+    max-height: 100%;
+
+    p {
+      max-height: 100%;
+    }
+
+    a {
+      display: none;
+    }
+  }
+}

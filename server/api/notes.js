@@ -56,7 +56,7 @@ const notesApi = {
             } else if (req.query.page) {
                 try {
                     const page = req.query.page ? parseInt(req.query.page) : 1
-                    const size = req.query.size ? parseInt(req.query.size) : 5
+                    const size = req.query.size ? parseInt(req.query.size) : 3
                     const notes = await Notes.find()
                         .skip((page - 1) * size)
                         .limit(size)

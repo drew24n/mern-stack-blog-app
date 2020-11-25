@@ -1,1 +1,9 @@
-.container {}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-weight: 700;
+  height: calc(100vh - 70px);
+}
